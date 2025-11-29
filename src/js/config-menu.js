@@ -52,8 +52,8 @@ const menuDefinition = [
 			// 	divider: true
 			// },
 			{
-				name: 'Export',
-				ellipsis: true,
+				name: 'Save',
+				ellipsis: false,
 				shortcut: 'S',
 				target: 'file/save.export'
 			},

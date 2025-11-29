@@ -35,14 +35,14 @@ class File_save_class {
 
 		//save types config
 		this.SAVE_TYPES = {
-			PNG: "Portable Network Graphics",
-			JPG: "JPG/JPEG Format",
+			PNG: "",
+			JPG: "",
 			//AVIF: "AV1 Image File Format", //just uncomment it in future to make it work
-			JSON: "Full layers data",
-			WEBP: "Weppy File Format",
-			GIF: "Graphics Interchange Format",
-			BMP: "Windows Bitmap",
-			TIFF: "Tag Image File Format",
+			// JSON: "Full layers data",
+			// WEBP: "Weppy File Format",
+			// GIF: "Graphics Interchange Format",
+			// BMP: "Windows Bitmap",
+			// TIFF: "Tag Image File Format",
 		};
 
 		this.default_extension = 'PNG';
@@ -141,14 +141,14 @@ class File_save_class {
 		var settings = {
 			title: title,
 			params: [
-				{name: "name", title: "File name:", value: file_name},
+				// {name: "name", title: "File name:", value: file_name},
 				{name: "type", title: "Save as type:", values: save_types, value: save_default},
 				{name: "quality", title: "Quality:", value: 90, range: [1, 100]},
-				{title: "File size:", html: '<span id="file_size">-</span>'},
-				{title: "Resolution:",  value: resolution},
-				{name: "calc_size", title: "Show file size:", value: calc_size_value},
-				{name: "layers", title: "Save layers:", values: save_layers_types},
-				{name: "delay", title: "Gif delay:", value: 400},
+				// {title: "File size:", html: '<span id="file_size">-</span>'},
+				// {title: "Resolution:",  value: resolution},
+				// {name: "calc_size", title: "Show file size:", value: calc_size_value},
+				// {name: "layers", title: "Save layers:", values: save_layers_types},
+				// {name: "delay", title: "Gif delay:", value: 400},
 			],
 			on_change: function (params, canvas_preview, w, h) {
 				_this.save_dialog_onchange(true);
