@@ -23743,8 +23743,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/esm/typeof.js");
-/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ "./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js");
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ "./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js");
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/esm/typeof.js");
 /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ "./node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
 /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/helpers/createClass */ "./node_modules/@babel/runtime/helpers/esm/createClass.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
@@ -23808,6 +23808,32 @@ var File_open_class = /*#__PURE__*/function () {
     this.events();
     this.maybe_file_open_url_handler();
   }
+
+  // events() {
+  // 	var _this = this;
+
+  // 	window.ondrop = function (e) {
+  // 		//drop
+  // 		e.preventDefault();
+  // 		_this.open_handler(e);
+  // 	};
+  // 	window.ondragover = function (e) {
+  // 		e.preventDefault();
+  // 	};
+  // 	document.addEventListener('keydown', (event) => {
+  // 		var code = event.key.toLowerCase();
+  // 		if (this.Helper.is_input(event.target))
+  // 			return;
+
+  // 		if (code == "o") {
+  // 			//open
+  // 			this.open_file();
+  // 			event.preventDefault();
+  // 		}
+  // 	}, false);
+  // }
+
+  // Add this to the events() method in file_open_class.js
   (0,_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3__["default"])(File_open_class, [{
     key: "events",
     value: function events() {
@@ -23830,6 +23856,55 @@ var File_open_class = /*#__PURE__*/function () {
           event.preventDefault();
         }
       }, false);
+
+      // ========================================
+      // ADD THIS: Listen for image load from parent window (React app)
+      // ========================================
+      window.addEventListener('message', function (event) {
+        console.log('📩 Received postMessage:', event.origin, event.data);
+
+        // Verify origin - UPDATE THESE TO MATCH YOUR REACT APP'S URL
+        var allowedOrigins = ['http://localhost:3000', 'http://127.0.0.1:3000', 'http://localhost:5173',
+        // Vite default
+        'http://127.0.0.1:5173'
+        // Add your production React app origin here
+        ];
+        if (!allowedOrigins.includes(event.origin)) {
+          console.warn('⚠️ Message from unauthorized origin:', event.origin);
+          return;
+        }
+        var messageData = event.data;
+        if (!messageData || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(messageData) !== 'object') return;
+
+        // Handle LOAD_IMAGE message
+        if (messageData.type === 'LOAD_IMAGE') {
+          var _messageData$data, _messageData$data2;
+          console.log('📥 Loading image from parent window');
+          console.log('Image URL:', ((_messageData$data = messageData.data) === null || _messageData$data === void 0 ? void 0 : _messageData$data.substring(0, 50)) + '...');
+          console.log('URL length:', ((_messageData$data2 = messageData.data) === null || _messageData$data2 === void 0 ? void 0 : _messageData$data2.length) || 0);
+          if (messageData.data) {
+            // Check if it's a data URL or HTTP URL
+            if (messageData.data.startsWith('data:')) {
+              // Data URL - use existing handler
+              console.log('Loading data URL');
+              _this.file_open_data_url_handler(messageData.data);
+            } else if (messageData.data.startsWith('http://') || messageData.data.startsWith('https://')) {
+              // HTTP URL - use URL handler
+              console.log('Loading HTTP URL');
+              _this.file_open_url_handler({
+                url: messageData.data
+              });
+            } else {
+              console.error('❌ Unknown URL format:', messageData.data.substring(0, 50));
+            }
+          } else {
+            console.error('❌ No image data in LOAD_IMAGE message');
+          }
+        }
+      });
+      // ========================================
+      // END OF ADDITION
+      // ========================================
     }
   }, {
     key: "on_paste",
@@ -24016,7 +24091,7 @@ var File_open_class = /*#__PURE__*/function () {
   }, {
     key: "open_handler",
     value: function () {
-      var _open_handler = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default().mark(function _callee(e) {
+      var _open_handler = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default().mark(function _callee(e) {
         var _this, files, auto_increment, orders, i, f, order_map, dir_opened, items, item, FR;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
@@ -24133,7 +24208,7 @@ var File_open_class = /*#__PURE__*/function () {
       path = path || "";
       if (item.isFile) {
         item.file( /*#__PURE__*/function () {
-          var _ref = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default().mark(function _callee2(file) {
+          var _ref = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default().mark(function _callee2(file) {
             var FR;
             return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default().wrap(function _callee2$(_context2) {
               while (1) switch (_context2.prev = _context2.next) {
@@ -24270,7 +24345,7 @@ var File_open_class = /*#__PURE__*/function () {
   }, {
     key: "load_json",
     value: function () {
-      var _load_json = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default().mark(function _callee3(data) {
+      var _load_json = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default().mark(function _callee3(data) {
         var json, i, new_id, j, old_type, actions, max_id_order, value;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default().wrap(function _callee3$(_context3) {
           while (1) switch (_context3.prev = _context3.next) {
@@ -24407,7 +24482,7 @@ var File_open_class = /*#__PURE__*/function () {
               for (i in json.layers) {
                 value = json.layers[i];
                 if (value.id > max_id_order) max_id_order = value.id;
-                if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(value.order) != undefined && value.order > max_id_order) max_id_order = value.order;
+                if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(value.order) != undefined && value.order > max_id_order) max_id_order = value.order;
                 if (value.type == 'image') {
                   //add image data
                   value.link = null;
@@ -25069,6 +25144,38 @@ var File_save_class = /*#__PURE__*/function () {
     }
 
     /**
+     * Sends postMessage to parent window with exported image data
+     * 
+     * @param {Blob} blob image blob
+     * @param {string} filename file name
+     */
+  }, {
+    key: "send_postmessage",
+    value: function send_postmessage(blob, filename) {
+      var _this = this;
+      // Check if we're in an iframe
+      if (window.parent !== window) {
+        // Convert blob to base64
+        var reader = new FileReader();
+        reader.onloadend = function () {
+          var base64data = reader.result;
+          var timestamp = new Date().toISOString();
+
+          // Send message to parent window
+          window.parent.postMessage({
+            type: 'MINIPAINT_SAVE',
+            data: {
+              image: base64data,
+              filename: filename,
+              timestamp: timestamp
+            }
+          }, '*');
+        };
+        reader.readAsDataURL(blob);
+      }
+    }
+
+    /**
      * saves data in requested way
      * 
      * @param {object} user_response parameters
@@ -25138,14 +25245,24 @@ var File_save_class = /*#__PURE__*/function () {
         //link.click();
 
         //save using lib
+        var _this = this;
         canvas.toBlob(function (blob) {
-          _node_modules_file_saver_dist_FileSaver_min_js__WEBPACK_IMPORTED_MODULE_9___default().saveAs(blob, fname);
+          _this.send_postmessage(blob, fname);
+          // Only download if not in iframe
+          if (window.parent === window) {
+            _node_modules_file_saver_dist_FileSaver_min_js__WEBPACK_IMPORTED_MODULE_9___default().saveAs(blob, fname);
+          }
         });
       } else if (type == 'JPG') {
         //jpg
         if (this.Helper.strpos(fname, '.jpg') == false) fname = fname + ".jpg";
+        var _this = this;
         canvas.toBlob(function (blob) {
-          _node_modules_file_saver_dist_FileSaver_min_js__WEBPACK_IMPORTED_MODULE_9___default().saveAs(blob, fname);
+          _this.send_postmessage(blob, fname);
+          // Only download if not in iframe
+          if (window.parent === window) {
+            _node_modules_file_saver_dist_FileSaver_min_js__WEBPACK_IMPORTED_MODULE_9___default().saveAs(blob, fname);
+          }
         }, "image/jpeg", quality);
       } else if (type == 'WEBP') {
         //WEBP
@@ -25154,8 +25271,13 @@ var File_save_class = /*#__PURE__*/function () {
 
         //check support
         if (this.check_format_support(canvas, data_header) == false) return false;
+        var _this = this;
         canvas.toBlob(function (blob) {
-          _node_modules_file_saver_dist_FileSaver_min_js__WEBPACK_IMPORTED_MODULE_9___default().saveAs(blob, fname);
+          _this.send_postmessage(blob, fname);
+          // Only download if not in iframe
+          if (window.parent === window) {
+            _node_modules_file_saver_dist_FileSaver_min_js__WEBPACK_IMPORTED_MODULE_9___default().saveAs(blob, fname);
+          }
         }, data_header, quality);
       } else if (type == 'AVIF') {
         //AVIF
@@ -25164,8 +25286,13 @@ var File_save_class = /*#__PURE__*/function () {
 
         //check support
         if (this.check_format_support(canvas, data_header) == false) return false;
+        var _this = this;
         canvas.toBlob(function (blob) {
-          _node_modules_file_saver_dist_FileSaver_min_js__WEBPACK_IMPORTED_MODULE_9___default().saveAs(blob, fname);
+          _this.send_postmessage(blob, fname);
+          // Only download if not in iframe
+          if (window.parent === window) {
+            _node_modules_file_saver_dist_FileSaver_min_js__WEBPACK_IMPORTED_MODULE_9___default().saveAs(blob, fname);
+          }
         }, data_header, quality);
       } else if (type == 'BMP') {
         //bmp
@@ -25174,15 +25301,25 @@ var File_save_class = /*#__PURE__*/function () {
 
         //check support
         if (this.check_format_support(canvas, data_header) == false) return false;
+        var _this = this;
         canvas.toBlob(function (blob) {
-          _node_modules_file_saver_dist_FileSaver_min_js__WEBPACK_IMPORTED_MODULE_9___default().saveAs(blob, fname);
+          _this.send_postmessage(blob, fname);
+          // Only download if not in iframe
+          if (window.parent === window) {
+            _node_modules_file_saver_dist_FileSaver_min_js__WEBPACK_IMPORTED_MODULE_9___default().saveAs(blob, fname);
+          }
         }, data_header);
       } else if (type == 'TIFF') {
         //tiff
         if (this.Helper.strpos(fname, '.tiff') == false) fname = fname + ".tiff";
         var data_header = "image/tiff";
+        var _this = this;
         _libs_canvastotiff_js__WEBPACK_IMPORTED_MODULE_11__["default"].toBlob(canvas, function (blob) {
-          _node_modules_file_saver_dist_FileSaver_min_js__WEBPACK_IMPORTED_MODULE_9___default().saveAs(blob, fname);
+          _this.send_postmessage(blob, fname);
+          // Only download if not in iframe
+          if (window.parent === window) {
+            _node_modules_file_saver_dist_FileSaver_min_js__WEBPACK_IMPORTED_MODULE_9___default().saveAs(blob, fname);
+          }
         }, data_header);
       } else if (type == 'JSON') {
         //json - full data with layers
@@ -25192,7 +25329,10 @@ var File_save_class = /*#__PURE__*/function () {
           type: "text/plain"
         });
         //var data = window.URL.createObjectURL(blob); //html5
-        _node_modules_file_saver_dist_FileSaver_min_js__WEBPACK_IMPORTED_MODULE_9___default().saveAs(blob, fname);
+        // Only download if not in iframe
+        if (window.parent === window) {
+          _node_modules_file_saver_dist_FileSaver_min_js__WEBPACK_IMPORTED_MODULE_9___default().saveAs(blob, fname);
+        }
       } else if (type == 'GIF') {
         //gif
         var cores = navigator.hardwareConcurrency || 4;
@@ -25210,6 +25350,7 @@ var File_save_class = /*#__PURE__*/function () {
           gif_settings.transparent = 'rgba(0,0,0,0)';
         }
         var gif = new (_node_modules_gif_js_optimized___WEBPACK_IMPORTED_MODULE_10___default())(gif_settings);
+        var _this = this;
 
         //add frames
         for (var i = 0; i < _config_js__WEBPACK_IMPORTED_MODULE_3__["default"].layers.length; i++) {
@@ -25226,7 +25367,11 @@ var File_save_class = /*#__PURE__*/function () {
         }
         gif.render();
         gif.on('finished', function (blob) {
-          _node_modules_file_saver_dist_FileSaver_min_js__WEBPACK_IMPORTED_MODULE_9___default().saveAs(blob, fname);
+          _this.send_postmessage(blob, fname);
+          // Only download if not in iframe
+          if (window.parent === window) {
+            _node_modules_file_saver_dist_FileSaver_min_js__WEBPACK_IMPORTED_MODULE_9___default().saveAs(blob, fname);
+          }
         });
       }
     }
