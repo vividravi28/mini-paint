@@ -435,6 +435,36 @@ class File_save_class {
 	}
 	
 	/**
+	 * Sends postMessage to parent window with exported image data
+	 * 
+	 * @param {Blob} blob image blob
+	 * @param {string} filename file name
+	 */
+	send_postmessage(blob, filename) {
+		var _this = this;
+		// Check if we're in an iframe
+		if (window.parent !== window) {
+			// Convert blob to base64
+			var reader = new FileReader();
+			reader.onloadend = function() {
+				var base64data = reader.result;
+				var timestamp = new Date().toISOString();
+				
+				// Send message to parent window
+				window.parent.postMessage({
+					type: 'MINIPAINT_SAVE',
+					data: {
+						image: base64data,
+						filename: filename,
+						timestamp: timestamp
+					}
+				}, '*');
+			};
+			reader.readAsDataURL(blob);
+		}
+	}
+
+	/**
 	 * saves data in requested way
 	 * 
 	 * @param {object} user_response parameters
@@ -512,7 +542,9 @@ class File_save_class {
 			//link.click();
 
 			//save using lib
+			var _this = this;
 			canvas.toBlob(function (blob) {
+				_this.send_postmessage(blob, fname);
 				filesaver.saveAs(blob, fname);
 			});
 		}
@@ -521,7 +553,9 @@ class File_save_class {
 			if (this.Helper.strpos(fname, '.jpg') == false)
 				fname = fname + ".jpg";
 
+			var _this = this;
 			canvas.toBlob(function (blob) {
+				_this.send_postmessage(blob, fname);
 				filesaver.saveAs(blob, fname);
 			}, "image/jpeg", quality);
 		}
@@ -535,7 +569,9 @@ class File_save_class {
 			if (this.check_format_support(canvas, data_header) == false)
 				return false;
 
+			var _this = this;
 			canvas.toBlob(function (blob) {
+				_this.send_postmessage(blob, fname);
 				filesaver.saveAs(blob, fname);
 			}, data_header, quality);
 		}
@@ -549,7 +585,9 @@ class File_save_class {
 			if (this.check_format_support(canvas, data_header) == false)
 				return false;
 
+			var _this = this;
 			canvas.toBlob(function (blob) {
+				_this.send_postmessage(blob, fname);
 				filesaver.saveAs(blob, fname);
 			}, data_header, quality);
 		}
@@ -563,7 +601,9 @@ class File_save_class {
 			if (this.check_format_support(canvas, data_header) == false)
 				return false;
 
+			var _this = this;
 			canvas.toBlob(function (blob) {
+				_this.send_postmessage(blob, fname);
 				filesaver.saveAs(blob, fname);
 			}, data_header);
 		}
@@ -573,7 +613,9 @@ class File_save_class {
 				fname = fname + ".tiff";
 			var data_header = "image/tiff";
 
+			var _this = this;
 			CanvasToTIFF.toBlob(canvas, function(blob) {
+				_this.send_postmessage(blob, fname);
 				filesaver.saveAs(blob, fname);
 			}, data_header);
 		}
@@ -604,6 +646,7 @@ class File_save_class {
 				gif_settings.transparent = 'rgba(0,0,0,0)';
 			}
 			var gif = new GIF(gif_settings);
+			var _this = this;
 
 			//add frames
 			for (var i = 0; i < config.layers.length; i++) {
@@ -620,6 +663,7 @@ class File_save_class {
 			}
 			gif.render();
 			gif.on('finished', function (blob) {
+				_this.send_postmessage(blob, fname);
 				filesaver.saveAs(blob, fname);
 			});
 		}
