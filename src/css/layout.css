@@ -140,6 +140,10 @@ body .sp-preview{
 
 /* ========== header ======================================================== */
 
+.logo {
+    display: none !important;
+}
+
 .logo{
 	position: relative;
 	display: inline-block;
