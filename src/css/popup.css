@@ -11,16 +11,19 @@
 	top: 15vh;
 	left: calc(100vw / 2);
 	transform: translate(-50%, 0);
-	background-color: #7A838B;
+	background-color: rgba(30, 30, 30, 0.95);
 	background-color: var(--block-background-color);
-	border: 1px solid rgba(0, 0, 0, 0.5);
+	border: 1px solid rgba(255, 255, 255, 0.2);
 	border: 1px solid var(--border-color);
 	width: 90vw;
 	max-width: 500px;
 	max-height: calc(80vh);
 	margin:0px auto 0px auto;
 	padding: 4rem 0 5rem 0;
-	box-shadow: 0 0 0 4000px rgba(0,0,0,0.3), 0 0 20px rgba(0,0,0,0.5);
+	box-shadow: 0 0 0 4000px rgba(0,0,0,0.5), 0 10px 40px rgba(151, 0, 244, 0.3), 0 0 20px rgba(0,0,0,0.7);
+	backdrop-filter: blur(20px);
+	-webkit-backdrop-filter: blur(20px);
+	border-radius: 0.625rem;
 	z-index: 100;
 	font-size: 13px;
 	overflow: hidden;
@@ -42,8 +45,14 @@
 	line-height: 4rem;
 	padding: 0 1rem;
 	font-size: 1.8rem;
-	background-color: rgba(255, 255, 255, 0.3);
+	background: linear-gradient(90deg, rgba(151, 0, 244, 0.3) 0%, rgba(192, 0, 126, 0.3) 100%);
 	background-color: var(--header-background-color);
+	backdrop-filter: blur(10px);
+	-webkit-backdrop-filter: blur(10px);
+	border-radius: 0.625rem 0.625rem 0 0;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+	color: #ffffff;
+	font-weight: bold;
 	z-index: 0;
 	cursor:move;
 }
@@ -54,7 +63,10 @@
 }
 #popups .popup .buttons{
 	position: absolute;
+	background-color: rgba(20, 20, 20, 0.8);
 	background-color: var(--block-background-color);
+	backdrop-filter: blur(10px);
+	-webkit-backdrop-filter: blur(10px);
 	bottom: 0;
 	left: 0;
 	right: 0;
@@ -63,7 +75,8 @@
 	margin: 0;
 	padding: .5rem 0;
 	text-align: center;
-	border-top: 1px solid var(--header-background-color);
+	border-top: 1px solid rgba(255, 255, 255, 0.1);
+	border-radius: 0 0 0.625rem 0.625rem;
 	z-index: 3;
 }
 #popups .popup .close{
@@ -77,8 +90,18 @@
 	margin-top: 10px;
 	margin-right: 10px;
 	border: none;
-	background: none;
+	background: rgba(255, 255, 255, 0.1);
+	border-radius: 50%;
+	width: 30px;
+	height: 30px;
+	color: #ffffff;
+	cursor: pointer;
+	transition: all 0.3s ease;
 	z-index: 1;
+}
+#popups .popup .close:hover {
+	background: linear-gradient(90deg, #c0007e 0%, #9700f4 100%);
+	transform: rotate(90deg);
 }
 #popups .popup input[type="range"]{
 	margin:0;
@@ -107,12 +130,24 @@
 }
 #popups .popup .button{
 	margin: 0 3px;
-	background-color: rgba(255, 255, 255, 0.2);
+	background-color: rgba(255, 255, 255, 0.15);
 	background-color: var(--button-background-color);
+	backdrop-filter: blur(2px);
+	-webkit-backdrop-filter: blur(2px);
 	min-width:60px;
-	border:1px solid rgba(0, 0, 0, 0.5);
+	border:1px solid rgba(255, 255, 255, 0.2);
 	border:1px solid var(--border-color);
+	border-radius: 0.625rem;
 	padding: 5px 10px;
+	color: #ffffff;
+	transition: all 0.3s ease;
+	box-shadow: inset 0px 0px 30px 8px rgba(255,255,255,0.1);
+}
+#popups .popup .button:hover {
+	background: linear-gradient(90deg, #c0007e 0%, #9700f4 100%);
+	border-color: rgba(151, 0, 244, 0.5);
+	transform: translateY(-1px);
+	box-shadow: 0 4px 12px rgba(151, 0, 244, 0.4);
 }
 #popups .popup input[type="text"], #popups .popup input[type="number"], #popups .popup textarea{
 	width:100%;

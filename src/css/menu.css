@@ -1,11 +1,11 @@
 :root {
-	--menu-dropdown-background-color: #ffffff;
-	--menu-dropdown-border-color: #49844d;
-	--menu-dropdown-text-color: #2d2b2b;
-	--menu-dropdown-text-muted-color: #aaaaaa;
-	--menu-dropdown-hover-background-color: #ba40e9;
-	--menu-dropdown-hover-text-color: #2d2d2d;
-	--menu-dropdown-divider-color: #e5e5e5;
+	--menu-dropdown-background-color: rgba(30, 30, 30, 0.95);
+	--menu-dropdown-border-color: rgba(151, 0, 244, 0.3);
+	--menu-dropdown-text-color: #f4f3f3;
+	--menu-dropdown-text-muted-color: #c1c1c1;
+	--menu-dropdown-hover-background-color: linear-gradient(90deg, #c0007e 0%, #9700f4 100%);
+	--menu-dropdown-hover-text-color: #ffffff;
+	--menu-dropdown-divider-color: rgba(255, 255, 255, 0.1);
 }
 
 .sr_only {
@@ -35,6 +35,10 @@
 	height: 30px;
 	padding-left: 10px;
 	background: var(--menu-background-color);
+	backdrop-filter: blur(10px);
+	-webkit-backdrop-filter: blur(10px);
+	border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 .main_menu > ul.menu_bar > li {
 	padding: 0;
@@ -58,9 +62,10 @@
 	box-shadow: 0 -3px var(--menu-dropdown-background-color) inset;
 }
 .main_menu > ul.menu_bar > li > a:hover {
-	background: var(--menu-dropdown-hover-background-color);
+	background: linear-gradient(90deg, #c0007e 0%, #9700f4 100%);
 	box-shadow: none;
-	color: var(--menu-dropdown-hover-text-color);
+	color: #ffffff;
+	transition: all 0.3s ease;
 }
 .main_menu > ul.menu_bar > li > a[aria-expanded="true"] {
 	background: var(--menu-dropdown-background-color);
@@ -83,8 +88,11 @@
 	overflow-x: hidden;
 	overflow-y: auto;
 	min-width: 150px;
-	box-shadow: 0 0 0 1px var(--menu-dropdown-border-color);
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 0 1px var(--menu-dropdown-border-color);
 	background: var(--menu-dropdown-background-color);
+	backdrop-filter: blur(10px);
+	-webkit-backdrop-filter: blur(10px);
+	border-radius: 0 0 0.625rem 0.625rem;
 }
 .main_menu > ul.menu_dropdown > li {
 	padding: 0;
@@ -115,14 +123,15 @@
 	box-shadow: 0 0 0 2px var(--menu-dropdown-hover-background-color) inset;
 }
 .main_menu > ul.menu_dropdown > li > a:hover {
-	background: var(--menu-dropdown-hover-background-color);
+	background: linear-gradient(90deg, #c0007e 0%, #9700f4 100%);
 	box-shadow: none;
-	color: var(--menu-dropdown-hover-text-color);
+	color: #ffffff;
+	transition: all 0.3s ease;
 }
 .main_menu > ul.menu_dropdown > li > a[aria-expanded="true"] {
-	background: var(--menu-dropdown-hover-background-color);
+	background: linear-gradient(90deg, #c0007e 0%, #9700f4 100%);
 	box-shadow: none;
-	color: var(--menu-dropdown-hover-text-color);
+	color: #ffffff;
 }
 .main_menu > ul.menu_dropdown > li > a[aria-haspopup="true"]::after {
 	position: absolute;

@@ -27,6 +27,37 @@
 	<meta property="og:description" content="miniPaint is free online image editor using HTML5. Edit, adjust your images, add effects online in your browser, without installing anything..." />
 	<meta property="og:site_name" content="miniPaint" />
 	
+	<!-- Glacial Indifference Font - Try to load from parent app, fallback to system fonts -->
+	<style>
+		@font-face {
+			font-family: 'Glacial Indifference';
+			src: url('../DesignGenieJS/frontend/src/assets/fonts/GlacialIndifference-Regular.woff2') format('woff2'),
+				url('../DesignGenieJS/frontend/src/assets/fonts/GlacialIndifference-Regular.woff') format('woff'),
+				url('../DesignGenieJS/frontend/src/assets/fonts/GlacialIndifference-Regular.ttf') format('truetype');
+			font-weight: normal;
+			font-style: normal;
+			font-display: swap;
+		}
+		@font-face {
+			font-family: 'Glacial Indifference';
+			src: url('../DesignGenieJS/frontend/src/assets/fonts/GlacialIndifference-Bold.woff2') format('woff2'),
+				url('../DesignGenieJS/frontend/src/assets/fonts/GlacialIndifference-Bold.woff') format('woff'),
+				url('../DesignGenieJS/frontend/src/assets/fonts/GlacialIndifference-Bold.ttf') format('truetype');
+			font-weight: bold;
+			font-style: normal;
+			font-display: swap;
+		}
+		@font-face {
+			font-family: 'Glacial Indifference';
+			src: url('../DesignGenieJS/frontend/src/assets/fonts/GlacialIndifference-Italic.woff2') format('woff2'),
+				url('../DesignGenieJS/frontend/src/assets/fonts/GlacialIndifference-Italic.woff') format('woff'),
+				url('../DesignGenieJS/frontend/src/assets/fonts/GlacialIndifference-Italic.ttf') format('truetype');
+			font-weight: normal;
+			font-style: italic;
+			font-display: swap;
+		}
+	</style>
+	
 	<script src="dist/bundle.js"></script>
 </head>
 <body>
