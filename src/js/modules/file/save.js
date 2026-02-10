@@ -141,7 +141,7 @@ class File_save_class {
 		var settings = {
 			title: title,
 			params: [
-				// {name: "name", title: "File name:", value: file_name},
+				{name: "name", title: "File name:", value: file_name},
 				{name: "type", title: "Save as type:", values: save_types, value: save_default},
 				{name: "quality", title: "Quality:", value: 90, range: [1, 100]},
 				// {title: "File size:", html: '<span id="file_size">-</span>'},
